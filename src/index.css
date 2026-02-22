@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-outfit: "Outfit", sans-serif;
+
+  --brand-light: rgb(125, 60, 240);
+  --brand-base: rgb(99, 102, 241);
+  --brand-dark: rgb(90, 70, 220);
+
+  --color-background: rgb(10, 10, 15);
+  --color-accent: var(--brand-base);
+  --color-accent-foreground: var(--brand-base);
+
+  --color-error: rgb(255, 80, 103);
+  --color-warning: rgb(255, 186, 87);
+  --color-success: rgb(45, 204, 129);
+  --color-info: rgb(59, 130, 246);
+
+  --color-primary-foreground: rgb(255, 255, 255);
+  --color-secondary-foreground: rgb(125, 140, 165);
+  --color-muted-foreground: rgb(153, 153, 153);
+
+  --color-error-foreground: var(--color-error);
+  --color-warning-foreground: var(--color-warning);
+  --color-success-foreground: var(--color-success);
+  --color-info-foreground: var(--color-info);
+
+  --color-modal-bg: rgb(10, 10, 10);
+  --color-modal-border: rgba(255, 255, 255, 0.1);
+  --color-popover-bg: rgb(16, 16, 22);
+  --color-card: rgba(38, 38, 38, 0.25);
+  --color-border: rgba(255, 255, 255, 0.075);
+
+  --color-input-bg: rgba(0, 0, 0, 0.15);
+  --color-input: rgba(255, 255, 255, 0.1);
+  --color-input-hover: rgb(64, 64, 64);
+  --color-input-active: rgb(255, 255, 255);
+
+  --shadow-accent: 0 0 15px color-mix(in srgb, var(--brand-base), transparent 70%);
+  --shadow-error: 0 0 30px color-mix(in srgb, var(--color-error), transparent 94%);
+  --shadow-warning: 0 0 30px color-mix(in srgb, var(--color-warning), transparent 94%);
+  --shadow-success: 0 0 30px color-mix(in srgb, var(--color-success), transparent 94%);
+  --shadow-info: 0 0 30px color-mix(in srgb, var(--color-info), transparent 94%);
+
+  --background-image-accent-gradient: linear-gradient(55deg, var(--brand-light) 0%, var(--brand-dark) 100%);
+}
+
+@utility fade-in-0 {
+  --tw-enter-opacity: 0;
+}
+
+@utility zoom-in-95 {
+  --tw-enter-scale: 0.95;
+}
+
+@utility slide-in-from-top-2 {
+  --tw-enter-translate-y: -0.5rem;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    @apply text-primary-foreground;
+    background-color: var(--color-background);
+    font-family: var(--font-outfit);
+    margin: 0;
+    min-height: 100vh;
+  }
+}

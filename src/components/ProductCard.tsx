@@ -34,7 +34,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="bg-card border-2 border-border rounded-xl overflow-hidden group hover:border-accent/30 transition-colors duration-300"
+            className="bg-card border-2 border-border rounded-md overflow-hidden group hover:border-accent/30 transition-colors duration-300"
         >
             {/* Image placeholder */}
             <Link to={detailPath}>
@@ -44,34 +44,37 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             </Link>
 
             {/* Info */}
-            <div className="p-4 flex flex-col gap-2">
-                {/* Tags */}
+            <div className="p-4.5">
                 <div className="flex flex-wrap gap-1.5">
-                    {product.tags.slice(0, 3).map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-[10px] px-2 py-0">
-                            {tag}
-                        </Badge>
-                    ))}
+                    {product.tags
+                        .filter((tag) => ["QBCore", "QBox", "ESX", "Standalone"].includes(tag))
+                        .map((tag) => (
+                            <Badge
+                                key={tag}
+                                variant={tag.toLowerCase() as "qbcore" | "qbox" | "esx" | "standalone"}
+                                className="rounded-xs"
+                            >
+                                {tag.toUpperCase()}
+                            </Badge>
+                        ))}
                 </div>
 
-                {/* Name + Price */}
-                <div className="flex items-center justify-between">
-                    <Link to={detailPath} className="font-bold text-primary-foreground hover:text-accent transition-colors truncate">
+                <div className="flex items-center justify-between text-xl">
+                    <Link to={detailPath} className="font-semibold text-primary-foreground  transition-colors truncate">
                         {product.name}
                     </Link>
-                    <span className="text-accent font-semibold whitespace-nowrap ml-2">
+                    <span className="text-accent-foreground  font-semibold whitespace-nowrap">
                         ${product.price.toFixed(2)}
                     </span>
                 </div>
 
-                {/* Description */}
-                <p className="text-sm text-muted-foreground line-clamp-2">
+                <p className="text-sm text-muted-foreground line-clamp-2 leading-tight">
                     {product.shortDescription}
                 </p>
 
                 {/* Add to Cart */}
                 <Button
-                    variant="gradient"
+                    variant="primary"
                     className="w-full mt-2"
                     onClick={handleAddToCart}
                 >

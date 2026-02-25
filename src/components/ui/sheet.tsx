@@ -1,5 +1,6 @@
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
+import { AnimatePresence, motion } from "framer-motion"
 import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -12,38 +13,64 @@ const SheetOverlay = React.forwardRef<
     React.ComponentRef<typeof DialogPrimitive.Overlay>,
     React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
-    <DialogPrimitive.Overlay
-        className={cn(
-            "fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-            className
-        )}
-        {...props}
-        ref={ref}
-    />
+    <DialogPrimitive.Overlay ref={ref} asChild {...props}>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className={cn(`
+                fixed inset-0 z-50
+                bg-black/60
+                backdrop-blur-sm
+            `, className)}
+        />
+    </DialogPrimitive.Overlay>
 ))
 SheetOverlay.displayName = "SheetOverlay"
 
 const SheetContent = React.forwardRef<
     React.ComponentRef<typeof DialogPrimitive.Content>,
-    React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-    <SheetPortal>
-        <SheetOverlay />
-        <DialogPrimitive.Content
-            ref={ref}
-            className={cn(
-                "fixed inset-y-0 right-0 z-50 h-full w-full max-w-md border-l-2 border-border bg-background p-6 shadow-lg transition-transform duration-300 ease-in-out data-[state=open]:translate-x-0 data-[state=closed]:translate-x-full",
-                className
-            )}
-            {...props}
-        >
-            {children}
-            <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 cursor-pointer">
-                <X className="h-5 w-5" />
-                <span className="sr-only">Close</span>
-            </DialogPrimitive.Close>
-        </DialogPrimitive.Content>
-    </SheetPortal>
+    React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
+        open?: boolean
+    }
+>(({ className, children, open, ...props }, ref) => (
+    <AnimatePresence>
+        {open && (
+            <SheetPortal forceMount>
+                <SheetOverlay />
+                <DialogPrimitive.Content ref={ref} asChild forceMount {...props}>
+                    <motion.div
+                        initial={{ x: "100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "100%" }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 30,
+                        }}
+                        className={cn(`
+                            fixed inset-y-0 right-0 z-50
+                            h-full w-full max-w-md p-6
+                            bg-background border-l-2 border-border
+                            shadow-lg
+                        `, className)}
+                    >
+                        {children}
+                        <DialogPrimitive.Close className={`
+                            absolute right-4 top-4 rounded-sm
+                            transition-opacity opacity-70
+                            hover:opacity-100
+                            cursor-pointer
+                        `}>
+                            <X className="h-5 w-5" />
+                            <span className="sr-only">Close</span>
+                        </DialogPrimitive.Close>
+                    </motion.div>
+                </DialogPrimitive.Content>
+            </SheetPortal>
+        )}
+    </AnimatePresence>
 ))
 SheetContent.displayName = "SheetContent"
 

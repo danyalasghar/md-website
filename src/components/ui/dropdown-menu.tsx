@@ -14,10 +14,14 @@ const DropdownMenuContent = React.forwardRef<
         <DropdownMenuPrimitive.Content
             ref={ref}
             sideOffset={sideOffset}
-            className={cn(
-                "z-50 min-w-[8rem] overflow-hidden rounded-xl border-2 border-border bg-popover-bg p-1 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-                className
-            )}
+            className={cn(`
+                z-50 overflow-hidden rounded
+                min-w-[8rem] p-1
+                bg-popover-bg border-2 border-popover
+                data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95
+                data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95
+                shadow-md
+            `, className)}
             {...props}
         />
     </DropdownMenuPrimitive.Portal>
@@ -30,10 +34,17 @@ const DropdownMenuItem = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <DropdownMenuPrimitive.Item
         ref={ref}
-        className={cn(
-            "relative flex cursor-pointer select-none items-center gap-2 rounded-lg px-3 py-2 text-sm text-primary-foreground outline-none transition-colors hover:bg-white/5 focus:bg-white/5 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0",
-            className
-        )}
+        className={cn(`
+            relative rounded-lg
+            px-3 py-2
+            flex items-center gap-2
+            outline-none
+            text-sm text-primary-foreground select-none
+            transition-colors
+            hover:bg-white/5 focus:bg-white/5
+            data-[disabled]:pointer-events-none data-[disabled]:opacity-50
+            cursor-pointer [&>svg]:size-4 [&>svg]:shrink-0
+        `, className)}
         {...props}
     />
 ))

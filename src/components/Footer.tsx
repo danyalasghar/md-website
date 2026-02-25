@@ -25,7 +25,7 @@ const legalLinks = [
 export default function Footer() {
     return (
         <footer className="pt-16 border-t-2 border-border">
-            <div className="max-w-7xl mx-auto px-6 pb-8">
+            <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 pb-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     {/* Left: Links */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
@@ -58,7 +58,6 @@ export default function Footer() {
                                             rel="noopener noreferrer"
                                             className="text-sm text-muted-foreground hover:text-primary-foreground transition-colors flex items-center gap-2"
                                         >
-                                            <link.icon className="h-4 w-4" />
                                             {link.label}
                                         </a>
                                     </li>

@@ -10,8 +10,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import { useAuth } from "@/context/AuthContext"
 import { useCart } from "@/context/CartContext"
+import fivemLogo from "@/assets/fivem-logo.png"
 
 const navLinks = [
     { label: "Home", to: "/" },
@@ -43,7 +51,7 @@ export default function Navbar() {
 
     return (
         <motion.nav
-            className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+            className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pr-[var(--removed-body-scroll-bar-size,0px)]"
             animate={{
                 backgroundColor: scrolled ? "rgba(10, 10, 15, 0.8)" : "rgba(10, 10, 15, 0)",
                 backdropFilter: scrolled ? "blur(12px)" : "blur(0px)",
@@ -52,7 +60,7 @@ export default function Navbar() {
             }}
             transition={{ duration: 0.3 }}
         >
-            <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
                 {/* Left */}
                 <div className="flex items-center gap-8">
                     <Link to="/" className="text-xl font-bold text-primary-foreground tracking-tight">
@@ -75,27 +83,24 @@ export default function Navbar() {
                 {/* Right */}
                 <div className="flex items-center gap-3">
                     {/* Currency Selector */}
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="sm" className="hidden sm:flex gap-1 text-muted-foreground">
-                                {currency} <ChevronDown className="h-3 w-3" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                    <Select value={currency} onValueChange={setCurrency}>
+                        <SelectTrigger className="hidden sm:flex w-18 gap-1 text-muted-foreground">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
                             {currencies.map((c) => (
-                                <DropdownMenuItem key={c} onClick={() => setCurrency(c)}>
+                                <SelectItem key={c} value={c}>
                                     {c}
-                                </DropdownMenuItem>
+                                </SelectItem>
                             ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                        </SelectContent>
+                    </Select>
 
                     {isLoggedIn ? (
                         <>
                             {/* Cart */}
                             <Button
                                 variant="ghost"
-                                size="icon"
                                 className="relative"
                                 onClick={() => setCartOpen(true)}
                             >
@@ -110,7 +115,7 @@ export default function Navbar() {
                             {/* User Dropdown */}
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="sm" className="gap-2">
+                                    <Button variant="ghost" className="gap-2">
                                         <img src={avatar} alt="" className="h-6 w-6 rounded-full" />
                                         <span className="hidden sm:inline text-sm">{username}</span>
                                         <ChevronDown className="h-3 w-3" />
@@ -131,15 +136,15 @@ export default function Navbar() {
                             </DropdownMenu>
                         </>
                     ) : (
-                        <Button variant="gradient" size="sm" onClick={login}>
-                            Sign in with FiveM
+                        <Button variant="primary" onClick={login}>
+                            <img src={fivemLogo} alt="" className="h-3 w-3" />
+                            Login with FiveM
                         </Button>
                     )}
 
                     {/* Mobile Menu Toggle */}
                     <Button
                         variant="ghost"
-                        size="icon"
                         className="lg:hidden"
                         onClick={() => setMobileOpen(!mobileOpen)}
                     >

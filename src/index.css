@@ -4,13 +4,12 @@
 @theme {
   --font-outfit: "Outfit", sans-serif;
 
-  --brand-light: rgb(125, 60, 240);
-  --brand-base: rgb(99, 102, 241);
-  --brand-dark: rgb(90, 70, 220);
+  --brand-light: rgb(110, 110, 250);
+  --brand-base: rgb(100, 100, 230);
+  --brand-dark: rgb(100, 90, 220);
 
   --color-background: rgb(10, 10, 15);
   --color-accent: var(--brand-base);
-  --color-accent-foreground: var(--brand-base);
 
   --color-error: rgb(255, 80, 103);
   --color-warning: rgb(255, 186, 87);
@@ -20,6 +19,7 @@
   --color-primary-foreground: rgb(255, 255, 255);
   --color-secondary-foreground: rgb(125, 140, 165);
   --color-muted-foreground: rgb(153, 153, 153);
+  --color-accent-foreground: color-mix(in srgb, var(--brand-base) 90%, white 10%);
 
   --color-error-foreground: var(--color-error);
   --color-warning-foreground: var(--color-warning);
@@ -30,7 +30,7 @@
   --color-modal-border: rgba(255, 255, 255, 0.1);
   --color-popover-bg: rgb(16, 16, 22);
   --color-card: rgba(38, 38, 38, 0.25);
-  --color-border: rgba(255, 255, 255, 0.075);
+  --color-border: rgba(255, 255, 255, 0.05);
 
   --color-input-bg: rgba(0, 0, 0, 0.15);
   --color-input: rgba(255, 255, 255, 0.1);

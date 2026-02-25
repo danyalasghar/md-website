@@ -2,13 +2,13 @@ import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
 import { Search, SlidersHorizontal } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import ProductCard from "@/components/ProductCard"
 import { bundles } from "@/data/products"
 
@@ -49,24 +49,23 @@ export default function BundlesPage() {
                                 className="pl-10"
                             />
                         </div>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="outline" className="gap-2">
-                                    <SlidersHorizontal className="h-4 w-4" />
-                                    {activeTag || "Filter"}
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuItem onClick={() => setActiveTag(null)}>
-                                    All
-                                </DropdownMenuItem>
+                        <Select
+                            value={activeTag ?? "all"}
+                            onValueChange={(value) => setActiveTag(value === "all" ? null : value)}
+                        >
+                            <SelectTrigger className="w-auto gap-2">
+                                <SlidersHorizontal className="h-4 w-4 shrink-0" />
+                                <SelectValue placeholder="Filter" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All</SelectItem>
                                 {allTags.map((tag) => (
-                                    <DropdownMenuItem key={tag} onClick={() => setActiveTag(tag)}>
+                                    <SelectItem key={tag} value={tag}>
                                         {tag}
-                                    </DropdownMenuItem>
+                                    </SelectItem>
                                 ))}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                            </SelectContent>
+                        </Select>
                     </div>
                 </motion.div>
 

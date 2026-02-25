@@ -1,21 +1,20 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { BASE_INPUT_STYLES } from "@/lib/style-constants"
 
-const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
-    ({ className, type, ...props }, ref) => {
-        return (
-            <input
-                type={type}
-                className={cn(
-                    "flex h-10 w-full rounded-lg border-2 border-border bg-input-bg px-4 py-2 text-sm text-primary-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none transition-colors disabled:cursor-not-allowed disabled:opacity-50",
-                    className
-                )}
-                ref={ref}
-                {...props}
-            />
-        )
-    }
-)
-Input.displayName = "Input"
+function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+    return (
+        <input
+            type={type}
+            data-slot="input"
+            className={cn(
+                BASE_INPUT_STYLES,
+                "input-field",
+                className
+            )}
+            {...props}
+        />
+    )
+}
 
 export { Input }

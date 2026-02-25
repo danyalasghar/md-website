@@ -1,60 +1,71 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+
 import { cn } from "@/lib/utils"
+import { BASE_INPUT_STYLES } from "@/lib/style-constants"
 
 const buttonVariants = cva(
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    `relative rounded
+    whitespace-nowrap
+    inline-flex items-center justify-center gap-3
+    text-sm font-medium antialiased
+    transform-gpu transition-all duration-300 ease-in-out
+    backdrop-blur-md cursor-pointer
+    disabled:pointer-events-none disabled:opacity-50
+    [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0`,
     {
         variants: {
             variant: {
-                default:
-                    "bg-accent text-white hover:opacity-90",
-                gradient:
-                    "bg-[image:var(--background-image-accent-gradient)] text-white hover:opacity-90 transition-opacity",
-                destructive:
-                    "bg-error/10 text-error-foreground border-2 border-error/20 hover:bg-error/20",
                 outline:
-                    "border-2 border-border bg-transparent text-primary-foreground hover:bg-white/5",
-                secondary:
-                    "bg-white/5 text-secondary-foreground border-2 border-border hover:bg-white/10",
-                ghost:
-                    "text-muted-foreground hover:bg-white/5 hover:text-primary-foreground",
-                link:
-                    "text-accent underline-offset-4 hover:underline",
+                    `bg-black/10 border-2 border-input shadow-none
+          text-primary-foreground
+          hover:bg-black/30`,
+                destructive:
+                    `bg-gradient-to-r from-rose-500 to-red-600 border-2 border-white/5
+          text-primary-foreground
+          hover:scale-[1.02] hover:drop-shadow-[0_0_8px_rgba(244,63,94,0.4)] active:scale-95`,
+                primary:
+                    `bg-accent-gradient border-2 border-white/5
+          text-primary-foreground
+          hover:scale-[1.02] hover:shadow-accent active:scale-95`,
+                input: cn("backdrop-blur-none mt-0 h-auto !px-3 text-left justify-start gap-3", BASE_INPUT_STYLES),
+                ghost: `p-0 backdrop-blur-none`,
+                link: `text-primary underline-offset-4 hover:underline`,
             },
             size: {
-                default: "h-10 px-5 py-2",
-                sm: "h-8 rounded-md px-3 text-xs",
-                lg: "h-12 rounded-lg px-8 text-base",
-                icon: "h-10 w-10",
+                ghost: `p-0`,
+                default: `h-9 px-4 py-2`,
             },
         },
         defaultVariants: {
-            variant: "default",
+            variant: "outline",
             size: "default",
         },
     }
 )
 
-export interface ButtonProps
-    extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-    asChild?: boolean
-}
+function Button({
+    className,
+    variant = "primary",
+    size = "default",
+    asChild = false,
+    ...props
+}: React.ComponentProps<"button"> &
+    VariantProps<typeof buttonVariants> & {
+        asChild?: boolean
+    }) {
+    const Comp = asChild ? Slot : "button"
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant, size, asChild = false, ...props }, ref) => {
-        const Comp = asChild ? Slot : "button"
-        return (
-            <Comp
-                className={cn(buttonVariants({ variant, size, className }))}
-                ref={ref}
-                {...props}
-            />
-        )
-    }
-)
-Button.displayName = "Button"
+    return (
+        <Comp
+            data-slot="button"
+            data-variant={variant}
+            data-size={size}
+            className={cn(buttonVariants({ variant, size, className }))}
+            {...props}
+        />
+    )
+}
 
 export { Button, buttonVariants }

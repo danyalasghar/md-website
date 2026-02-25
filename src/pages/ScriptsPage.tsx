@@ -2,13 +2,13 @@ import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
 import { Search, SlidersHorizontal } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import ProductCard from "@/components/ProductCard"
 import { scripts } from "@/data/products"
 
@@ -31,7 +31,6 @@ export default function ScriptsPage() {
     return (
         <div className="pt-24 pb-16">
             <div className="max-w-7xl mx-auto px-6">
-                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -46,27 +45,26 @@ export default function ScriptsPage() {
                                 placeholder="Search scripts..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="pl-10"
+                                className="pl-10 py-2 w-sm"
                             />
                         </div>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="outline" className="gap-2">
-                                    <SlidersHorizontal className="h-4 w-4" />
-                                    {activeTag || "Filter"}
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuItem onClick={() => setActiveTag(null)}>
-                                    All
-                                </DropdownMenuItem>
+                        <Select
+                            value={activeTag ?? "all"}
+                            onValueChange={(value) => setActiveTag(value === "all" ? null : value)}
+                        >
+                            <SelectTrigger className="w-auto gap-2">
+                                <SlidersHorizontal className="h-4 w-4 shrink-0" />
+                                <SelectValue placeholder="Filter" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All</SelectItem>
                                 {allTags.map((tag) => (
-                                    <DropdownMenuItem key={tag} onClick={() => setActiveTag(tag)}>
+                                    <SelectItem key={tag} value={tag}>
                                         {tag}
-                                    </DropdownMenuItem>
+                                    </SelectItem>
                                 ))}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                            </SelectContent>
+                        </Select>
                     </div>
                 </motion.div>
 

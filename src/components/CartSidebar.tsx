@@ -18,7 +18,7 @@ export default function CartSidebar() {
 
     return (
         <Sheet open={isCartOpen} onOpenChange={setCartOpen}>
-            <SheetContent className="flex flex-col">
+            <SheetContent className="flex flex-col" open={isCartOpen}>
                 <SheetHeader>
                     <SheetTitle>Your cart</SheetTitle>
                     <SheetDescription>{totalItems} item{totalItems !== 1 ? "s" : ""}</SheetDescription>
@@ -50,7 +50,6 @@ export default function CartSidebar() {
                                         </p>
                                         <Button
                                             variant="destructive"
-                                            size="sm"
                                             className="mt-2 h-7 text-xs"
                                             onClick={() => removeItem(item.product.id)}
                                         >
@@ -83,7 +82,7 @@ export default function CartSidebar() {
                     </div>
 
                     {/* Checkout Button */}
-                    <Button variant="gradient" className="w-full" size="lg">
+                    <Button variant="primary" className="w-full">
                         <CreditCard className="h-4 w-4" />
                         Checkout
                     </Button>

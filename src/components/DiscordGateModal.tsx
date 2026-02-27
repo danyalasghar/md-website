@@ -52,7 +52,7 @@ export default function DiscordGateModal() {
                     ))}
                 </div>
 
-                <Button variant="gradient" className="w-full" size="lg" onClick={handleConnect}>
+                <Button variant="primary" className="w-full" size="lg" onClick={handleConnect}>
                     <MessageCircle className="h-4 w-4" />
                     Connect Discord
                 </Button>

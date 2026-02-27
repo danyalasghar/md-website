@@ -51,32 +51,37 @@ export default function Navbar() {
 
     return (
         <motion.nav
-            className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pr-[var(--removed-body-scroll-bar-size,0px)]"
+            className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pr-(--removed-body-scroll-bar-size,0px)"
             animate={{
-                backgroundColor: scrolled ? "rgba(10, 10, 15, 0.8)" : "rgba(10, 10, 15, 0)",
-                backdropFilter: scrolled ? "blur(12px)" : "blur(0px)",
-                borderBottomWidth: scrolled ? "2px" : "0px",
+                backgroundColor: scrolled ? "rgba(10, 10, 10, 0.6)" : "rgba(10, 10, 15, 0)",
+                backdropFilter: scrolled ? "blur(40px)" : "blur(0px)",
+                borderBottomWidth: "2px",
                 borderBottomColor: scrolled ? "rgba(255,255,255,0.075)" : "rgba(255,255,255,0)",
             }}
             transition={{ duration: 0.3 }}
         >
             <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
                 {/* Left */}
-                <div className="flex items-center gap-8">
+                <div className="flex items-center gap-8 h-full">
                     <Link to="/" className="text-xl font-bold text-primary-foreground tracking-tight">
                         Midnight<span className="text-accent">Dev</span>
                     </Link>
-                    <div className="hidden lg:flex items-center gap-6">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.to}
-                                to={link.to}
-                                className={`text-sm font-medium transition-colors hover:text-primary-foreground ${location.pathname === link.to ? "text-primary-foreground" : "text-muted-foreground"
-                                    }`}
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
+                    <div className="hidden lg:flex items-center gap-1 h-full">
+                        {navLinks.map((link) => {
+                            const isActive = location.pathname === link.to
+                            return (
+                                <Link
+                                    key={link.to}
+                                    to={link.to}
+                                    className={`py-1.5 px-4 flex  items-center text-sm font-medium transition-all border-b-2 hover:text-primary-foreground ${isActive
+                                        ? "text-primary-foreground border-white"
+                                        : "text-muted-foreground border-transparent"
+                                        }`}
+                                >
+                                    {link.label}
+                                </Link>
+                            )
+                        })}
                     </div>
                 </div>
 

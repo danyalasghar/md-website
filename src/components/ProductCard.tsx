@@ -1,4 +1,3 @@
-import { motion } from "framer-motion"
 import { ShoppingCart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -9,10 +8,9 @@ import { Link } from "react-router"
 
 interface ProductCardProps {
     product: Product
-    index?: number
 }
 
-export default function ProductCard({ product, index = 0 }: ProductCardProps) {
+export default function ProductCard({ product }: ProductCardProps) {
     const { isLoggedIn, isDiscordConnected } = useAuth()
     const { addItem, setDiscordModalOpen } = useCart()
 
@@ -30,11 +28,8 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         : `/scripts/${product.slug}`
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="bg-card border-2 border-border rounded-md overflow-hidden group hover:border-accent/30 transition-colors duration-300"
+        <div
+            className="relative bg-card border-2 border-border rounded-md overflow-hidden group hover:border-accent/30 transition-colors duration-300"
         >
             {/* Image placeholder */}
             <Link to={detailPath}>
@@ -44,44 +39,47 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             </Link>
 
             {/* Info */}
-            <div className="p-4.5">
-                <div className="flex flex-wrap gap-1.5">
+            <div className="p-4.5 flex flex-col gap-2.5">
+
+
+                <div className="flex flex-wrap gap-1.5 -ml-0.25">
                     {product.tags
                         .filter((tag) => ["QBCore", "QBox", "ESX", "Standalone"].includes(tag))
                         .map((tag) => (
                             <Badge
                                 key={tag}
                                 variant={tag.toLowerCase() as "qbcore" | "qbox" | "esx" | "standalone"}
-                                className="rounded-xs"
+                                className=""
                             >
                                 {tag.toUpperCase()}
                             </Badge>
                         ))}
                 </div>
 
-                <div className="flex items-center justify-between text-xl">
-                    <Link to={detailPath} className="font-semibold text-primary-foreground  transition-colors truncate">
-                        {product.name}
-                    </Link>
-                    <span className="text-accent-foreground  font-semibold whitespace-nowrap">
-                        ${product.price.toFixed(2)}
-                    </span>
+                <div className="mb-2 flex flex-col gap-0.25 ">
+                    <div className="flex items-center justify-between text-lg">
+                        <Link to={detailPath} className="font-semibold text-primary-foreground  transition-colors truncate">
+                            {product.name}
+                        </Link>
+                        <span className="font-semibold text-accent-foreground whitespace-nowrap text-shadow-accent">
+                            ${product.price.toFixed(2)}
+                        </span>
+                    </div>
+                    <p className="text-[0.875rem] font-light text-muted-foreground max-w-2xs line-clamp-2 leading-[1.25]">
+                        {product.shortDescription}
+                    </p>
                 </div>
-
-                <p className="text-sm text-muted-foreground line-clamp-2 leading-tight">
-                    {product.shortDescription}
-                </p>
 
                 {/* Add to Cart */}
                 <Button
                     variant="primary"
-                    className="w-full mt-2"
+                    className="w-full"
                     onClick={handleAddToCart}
                 >
                     <ShoppingCart className="h-4 w-4" />
                     Add to Cart
                 </Button>
             </div>
-        </motion.div>
+        </div>
     )
 }

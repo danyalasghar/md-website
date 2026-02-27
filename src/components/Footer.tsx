@@ -24,7 +24,7 @@ const legalLinks = [
 
 export default function Footer() {
     return (
-        <footer className="pt-16 border-t-2 border-border">
+        <footer className="pt-16 mt-32 border-t-2 border-border">
             <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 pb-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     {/* Left: Links */}

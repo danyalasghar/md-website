@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
   --font-outfit: "Outfit", sans-serif;
@@ -19,7 +23,7 @@
   --color-primary-foreground: rgb(255, 255, 255);
   --color-secondary-foreground: rgb(125, 140, 165);
   --color-muted-foreground: rgb(153, 153, 153);
-  --color-accent-foreground: color-mix(in srgb, var(--brand-base) 90%, white 10%);
+  --color-accent-foreground: color-mix(in srgb, var(--brand-base) 90%, white 15%);
 
   --color-error-foreground: var(--color-error);
   --color-warning-foreground: var(--color-warning);
@@ -43,7 +47,18 @@
   --shadow-success: 0 0 30px color-mix(in srgb, var(--color-success), transparent 94%);
   --shadow-info: 0 0 30px color-mix(in srgb, var(--color-info), transparent 94%);
 
+  --text-shadow-primary: 0 0 15px color-mix(in srgb, var(--color-primary-foreground), transparent 67%);
+  --text-shadow-accent: 0 0 15px color-mix(in srgb, var(--color-accent-foreground), transparent 67%);
+  --text-shadow-error: 0 0 15px color-mix(in srgb, var(--color-error-foreground), transparent 67%);
+  --text-shadow-warning: 0 0 15px color-mix(in srgb, var(--color-warning-foreground), transparent 67%);
+  --text-shadow-success: 0 0 15px color-mix(in srgb, var(--color-success-foreground), transparent 67%);
+  --text-shadow-info: 0 0 15px color-mix(in srgb, var(--color-info-foreground), transparent 67%);
+
   --background-image-accent-gradient: linear-gradient(55deg, var(--brand-light) 0%, var(--brand-dark) 100%);
+}
+
+@utility text-shadow-* {
+  text-shadow: --value(--text-shadow-);
 }
 
 @utility fade-in-0 {
@@ -66,10 +81,10 @@
   }
 
   body {
-    @apply text-primary-foreground;
     background-color: var(--color-background);
     font-family: var(--font-outfit);
     margin: 0;
     min-height: 100vh;
+    @apply bg-background text-primary-foreground;
   }
 }

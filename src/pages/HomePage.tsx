@@ -1,6 +1,5 @@
-import { motion } from "framer-motion"
 import { Link } from "react-router"
-import { Sparkles, ArrowRight, Palette, RefreshCw, Puzzle, Headphones, MessageCircle } from "lucide-react"
+import { Sparkles, ArrowRight, Palette, RefreshCw, Puzzle, Headphones } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import ProductCard from "@/components/ProductCard"
@@ -8,74 +7,45 @@ import {
     Carousel,
     CarouselContent,
     CarouselItem,
-    CarouselPrevious,
-    CarouselNext,
 } from "@/components/ui/carousel"
 import { featuredProducts } from "@/data/products"
 import bg from "@/assets/bg.png"
 import AccentSeparator from "@/components/ui/accent-seperator"
 import discord from "@/assets/discord.svg"
 
-const container = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: { staggerChildren: 0.1 },
-    },
-}
-
-const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-}
 
 const features = [
     {
         icon: Palette,
         title: "Clean, Aesthetic Design",
-        description: "We put a strong focus on delivering modern, sleek dark-themed UIs that feel both stylish and easy to use.",
+        description: "We put a strong focus on delivering modern, sleek dark-themed UIs that feel both stylish and easy to use",
     },
     {
         icon: RefreshCw,
         title: "Free Updates Forever",
-        description: "From tiny tweaks to major version overhauls, every update is free — giving you the best version of your script, forever.",
+        description: "From tiny tweaks to major version overhauls, every update is free — giving you the best version forever",
     },
     {
         icon: Puzzle,
         title: "Modular Code",
-        description: "We always provide open source functions to make integration with any other resource as easy as possible",
+        description: "We always provide open source functions to make integration with any other resource as easy asf",
     },
     {
         icon: Headphones,
         title: "Active Support",
-        description: "Whether you're setting things up, running into issues, or looking for customization ideas, our team is always here to help.",
+        description: "Whether you're setting things up, running into issues, or looking for customization ideas, we gotchu",
     },
 ]
 
 export default function HomePage() {
     return (
-        <div className="flex flex-col gap-24">
+        <div className="max-w-screen-2xl mx-auto px-4 lg:px-12 pt-10 lg:pt-24">
             {/* Hero Section */}
-            <section className=" flex flex-col gap-16 items-center justify-center">
-                <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <section className="flex flex-col gap-16 items-center justify-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Left */}
-                    <motion.div
-                        variants={container}
-                        initial="hidden"
-                        animate="show"
-                        className="flex flex-col gap-6"
-                    >
-                        {/* <motion.div variants={item}>
-                            <Badge>
-                                <MessageCircle className="h-3.5 w-3.5" />
-                                Get 40% off by joining our discord
-                            </Badge>
-                        </motion.div> */}
-
-                        <motion.h1
-                            variants={item}
-                            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[4.25rem]"
-                        >
+                    <div className="flex flex-col gap-6">
+                        <h1 className=" text-5xl lg:text-6xl font-bold leading-14 lg:leading-17">
                             Where Premium Scripts Meet{" "}
                             <span
                                 className="text-transparent bg-clip-text bg-[image:var(--background-image-accent-gradient)]"
@@ -83,20 +53,18 @@ export default function HomePage() {
                             >
                                 Flawless Aesthetics
                             </span>
+                        </h1>
 
-                        </motion.h1>
-
-                        <motion.p variants={item} className="text-lg text-secondary-foreground max-w-xl">
+                        <p className="text-lg text-secondary-foreground max-w-xl">
                             Midnight Dev offers premium FiveM scripts built around modern UI design,
                             reliable functionality and seamless integration for QBCore, QBox and ESX.
-                        </motion.p>
+                        </p>
 
-                        <motion.div variants={item} className="flex flex-wrap gap-4 mt-4    ">
+                        <div className="flex flex-wrap gap-4 mt-4    ">
                             <Button variant="primary" asChild className="px-6! py-5!">
                                 <Link to="/scripts">
                                     Explore Scripts
                                     <ArrowRight className="h-4 w-4" />
-
                                 </Link>
                             </Button>
                             <Button variant="outline" asChild className="px-6! py-5.25! mt-[-0.05rem]!">
@@ -105,35 +73,20 @@ export default function HomePage() {
                                     Join Discord
                                 </a>
                             </Button>
-                        </motion.div>
-                    </motion.div>
+                        </div>
+                    </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        className="hidden lg:flex items-center justify-center"
-                    >
+                    <div className="hidden lg:flex items-center justify-center">
                         <div className="w-full h-80 border-2 border-dashed border-border rounded-xl flex items-center justify-center text-muted-foreground text-sm">
                             <span className="opacity-40 tracking-widest uppercase text-xs">3D Visual Placeholder</span>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className="max-w-screen-2xl mx-auto px-6 lg:px-12 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-                >
-                    {features.map((feature, i) => (
-                        <motion.div
+                <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {features.map((feature) => (
+                        <div
                             key={feature.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: i * 0.1 }}
                             className="relative overflow-hidden flex gap-4 p-5 rounded-md bg-card border-2 border-border hover:border-accent/20 transition-colors duration-300"
                         >
                             <div
@@ -151,47 +104,41 @@ export default function HomePage() {
                                 <feature.icon className="h-10 w-10 text-accent" strokeWidth={1.5} />
                             </div>
                             <div className="relative">
-                                <h4 className="font-semibold text-primary-foreground text-sm">{feature.title}</h4>
-                                <p className="text-xs text-secondary-foreground mt-1 leading-normal">{feature.description}</p>
+                                <h4 className="font-semibold text-primary-foreground text-[0.95rem]">{feature.title}</h4>
+                                <p className="text-[0.875rem] font-normal text-secondary-foreground mt-0.75 leading-[1.4]">{feature.description}</p>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
-                </motion.div>
+                </div>
             </section>
 
             <AccentSeparator />
 
             {/* Featured Products */}
             <section>
-                <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                        className="text-center mb-10"
-                    >
+                <div className="flex flex-col gap-10 items-center justify-center">
+                    <div className="text-center">
                         <Badge className="gap-2 px-4 py-1.5 mb-4">
                             <Sparkles className="h-3.5 w-3.5" />
                             Our most popular products
                         </Badge>
                         <h2 className="text-3xl sm:text-4xl font-bold">Featured Products</h2>
-                    </motion.div>
+                    </div>
 
                     <Carousel
                         opts={{ align: "start", loop: true }}
                         className="w-full"
                     >
                         <CarouselContent>
-                            {featuredProducts.map((product, i) => (
+                            {featuredProducts.map((product) => (
                                 <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3">
-                                    <ProductCard product={product} index={i} />
+                                    <ProductCard product={product} />
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
                     </Carousel>
 
-                    <div className="flex justify-center mt-10">
+                    <div className="flex justify-center">
                         <Button variant="outline" asChild>
                             <Link to="/scripts">
                                 View all products

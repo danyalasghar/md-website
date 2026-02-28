@@ -56,7 +56,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                         ))}
                 </div>
 
-                <div className="mb-2 flex flex-col gap-0.25 ">
+                <div className="mb-2 flex flex-col gap-0.75 ">
                     <div className="flex items-center justify-between text-lg">
                         <Link to={detailPath} className="font-semibold text-primary-foreground  transition-colors truncate">
                             {product.name}

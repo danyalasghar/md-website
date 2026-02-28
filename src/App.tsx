@@ -4,6 +4,7 @@ import { pages, type PageConfig } from "@/pages.config"
 import Layout from "@/components/Layout"
 import { Toaster } from "@/components/ui/sonner"
 import { AnimatePresence, motion } from "framer-motion"
+import { useLenis } from "lenis/react"
 
 function App() {
   const element = useRoutes(
@@ -15,9 +16,15 @@ function App() {
 
   const location = useLocation()
 
+  const lenis = useLenis()
+
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location.pathname])
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo(0, 0)
+    }
+  }, [location.pathname, lenis])
 
   return (
     <>

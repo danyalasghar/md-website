@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "simplebar/dist/simplebar.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -30,11 +31,14 @@
   --color-success-foreground: var(--color-success);
   --color-info-foreground: var(--color-info);
 
+  --color-border: rgba(255, 255, 255, 0.1);
+
   --color-modal-bg: rgb(10, 10, 10);
-  --color-modal-border: rgba(255, 255, 255, 0.1);
+  --color-modal: var(--color-border);
   --color-popover-bg: rgb(16, 16, 22);
-  --color-card: rgba(38, 38, 38, 0.25);
-  --color-border: rgba(255, 255, 255, 0.05);
+  --color-popover: var(--color-border);
+  --color-card-bg: rgba(38, 38, 38, 0.25);
+  --color-card: var(--color-border);
 
   --color-input-bg: rgba(0, 0, 0, 0.15);
   --color-input: rgba(255, 255, 255, 0.1);
@@ -78,6 +82,33 @@
 @layer base {
   * {
     border-color: var(--color-border);
+  }
+
+  .simplebar-scrollbar::before {
+    background-color: var(--brand-base) !important;
+    opacity: 0 !important;
+    border-radius: 4px !important;
+    transition: opacity 0.8s ease-out !important;
+    box-shadow: 0 0 10px rgba(100, 100, 230, 0.2);
+  }
+
+  .simplebar-scrollbar.simplebar-visible::before {
+    opacity: 0.5 !important;
+    transition: opacity 0s !important;
+  }
+
+  .simplebar-scrollbar.simplebar-hover::before {
+    opacity: 0.67 !important;
+  }
+
+  .simplebar-track.simplebar-vertical {
+    width: 8px !important;
+    background-color: transparent !important;
+  }
+
+  .simplebar-track.simplebar-horizontal {
+    height: 8px !important;
+    background-color: transparent !important;
   }
 
   body {

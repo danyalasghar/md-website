@@ -87,7 +87,7 @@ export default function HomePage() {
                     {features.map((feature) => (
                         <div
                             key={feature.title}
-                            className="relative overflow-hidden flex gap-4 p-5 rounded-md bg-card border-2 border-border hover:border-accent/20 transition-colors duration-300"
+                            className="relative overflow-hidden flex gap-4 p-5 rounded-md bg-card-bg border-2 border-card hover:border-accent/20 transition-colors duration-300"
                         >
                             <div
                                 className="absolute inset-0 pointer-events-none"

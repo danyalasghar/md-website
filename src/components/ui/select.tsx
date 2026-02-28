@@ -64,9 +64,9 @@ function SelectContent({
                 data-slot="select-content"
                 sideOffset={sideOffset}
                 className={cn(`
-                    relative z-50 overflow-hidden rounded-[0.25rem]
+                    relative z-50 overflow-hidden rounded-sm
                     box-border max-h-96 w-full
-                    ${position === "popper" && "w-[var(--radix-select-trigger-width)] min-w-full"}
+                    ${position === "popper" && "w-(--radix-select-trigger-width) min-w-full"}
                     bg-popover-bg border-2 border-popover
                     text-primary-foreground
                     animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200 ease-out
@@ -105,7 +105,7 @@ function SelectItem({
                 text-sm text-muted-foreground select-none
                 focus:bg-accent-gradient focus:text-primary-foreground
                 data-[state=checked]:text-primary-foreground
-                data-[disabled]:pointer-events-none data-[disabled]:opacity-40
+                data-disabled:pointer-events-none data-disabled:opacity-40
                 cursor-pointer
             `, className)}
             {...props}

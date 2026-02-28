@@ -29,7 +29,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     return (
         <div
-            className="relative bg-card border-2 border-border rounded-md overflow-hidden group hover:border-accent/30 transition-colors duration-300"
+            className="relative bg-card-bg border-2 border-card rounded-md overflow-hidden group hover:border-accent transition-colors duration-300"
         >
             {/* Image placeholder */}
             <Link to={detailPath}>

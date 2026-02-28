@@ -40,9 +40,12 @@ export default function Navbar() {
     const location = useLocation()
 
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 20)
-        window.addEventListener("scroll", onScroll)
-        return () => window.removeEventListener("scroll", onScroll)
+        const onScroll = (e: any) => {
+            const scrollY = e.target.scrollTop || window.scrollY
+            setScrolled(scrollY > 20)
+        }
+        window.addEventListener("scroll", onScroll, true)
+        return () => window.removeEventListener("scroll", onScroll, true)
     }, [])
 
     useEffect(() => {
@@ -51,7 +54,7 @@ export default function Navbar() {
 
     return (
         <motion.nav
-            className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pr-(--removed-body-scroll-bar-size,0px)"
+            className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
             animate={{
                 backgroundColor: scrolled ? "rgba(10, 10, 10, 0.6)" : "rgba(10, 10, 15, 0)",
                 backdropFilter: scrolled ? "blur(40px)" : "blur(0px)",
@@ -111,7 +114,7 @@ export default function Navbar() {
                             >
                                 <ShoppingCart className="h-5 w-5" />
                                 {totalItems > 0 && (
-                                    <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-accent text-[10px] font-bold flex items-center justify-center text-white">
+                                    <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-accent text-[10px] font-bold flex items-center justify-center text-primary-foreground">
                                         {totalItems}
                                     </span>
                                 )}
@@ -126,7 +129,7 @@ export default function Navbar() {
                                         <ChevronDown className="h-3 w-3" />
                                     </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
+                                <DropdownMenuContent align="end" className="w-56">
                                     <DropdownMenuItem>
                                         <User className="mr-2 h-4 w-4" /> Manage Orders
                                     </DropdownMenuItem>

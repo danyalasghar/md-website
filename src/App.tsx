@@ -1,12 +1,14 @@
 import { useEffect } from "react"
-import { useLocation, useRoutes } from "react-router"
+import { BrowserRouter, useLocation, useRoutes } from "react-router"
+import { ReactLenis, useLenis } from "lenis/react"
 import { pages, type PageConfig } from "@/pages.config"
 import Layout from "@/components/Layout"
 import { Toaster } from "@/components/ui/sonner"
 import { AnimatePresence, motion } from "framer-motion"
-import { useLenis } from "lenis/react"
+import { AuthProvider } from '@/context/AuthContext'
+import { CartProvider } from '@/context/CartContext'
 
-function App() {
+function AppContent() {
   const element = useRoutes(
     pages.map((page: PageConfig) => ({
       path: page.path,
@@ -45,6 +47,20 @@ function App() {
       </Layout>
       <Toaster />
     </>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <CartProvider>
+          <ReactLenis root options={{ lerp: 0.15, wheelMultiplier: 1.2, smoothWheel: true }}>
+            <AppContent />
+          </ReactLenis>
+        </CartProvider>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 

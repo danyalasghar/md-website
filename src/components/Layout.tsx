@@ -1,11 +1,11 @@
 import type { ReactNode } from "react"
 import bg from "@/assets/bg.png"
-import SimpleBar from "simplebar-react"
 
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import CartSidebar from "@/components/CartSidebar"
 import DiscordGateModal from "@/components/DiscordGateModal"
+import CustomScrollbar from "@/components/CustomScrollbar"
 
 interface LayoutProps {
     children: ReactNode
@@ -13,32 +13,31 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
     return (
-        <SimpleBar style={{ height: "100vh" }} autoHide={true}>
-            <div className="min-h-screen flex flex-col relative w-full overflow-hidden">
-                <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-40">
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-indigo-900/10 to-transparent" />
-                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px]" />
-                </div>
-                <div
-                    className="fixed inset-0 -z-10 pointer-events-none"
-                    style={{
-                        backgroundImage: `url(${bg})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        opacity: 0.2,
-                        filter: "blur(70px) hue-rotate(15deg)",
-                    }}
-                />
-                <Navbar />
-                <CartSidebar />
-                <DiscordGateModal />
-                <main className="mt-16">
-                    {children}
-                </main>
-                <Footer />
+        <div className="min-h-screen flex flex-col relative w-full overflow-x-hidden">
+            <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-40">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-indigo-900/10 to-transparent" />
+                <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px]" />
+                <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px]" />
             </div>
-        </SimpleBar>
+            <div
+                className="fixed inset-0 -z-10 pointer-events-none"
+                style={{
+                    backgroundImage: `url(${bg})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    opacity: 0.2,
+                    filter: "blur(70px) hue-rotate(15deg)",
+                }}
+            />
+            <Navbar />
+            <CartSidebar />
+            <DiscordGateModal />
+            <main className="mt-16 flex-grow">
+                {children}
+            </main>
+            <Footer />
+            <CustomScrollbar />
+        </div>
     )
 }

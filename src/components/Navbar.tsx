@@ -76,7 +76,7 @@ export default function Navbar() {
                                 <Link
                                     key={link.to}
                                     to={link.to}
-                                    className={`py-1.5 px-4 flex  items-center text-sm font-medium transition-all border-b-2 hover:text-primary-foreground ${isActive
+                                    className={`py-1.75 px-4 flex  items-center text-sm font-medium transition-all border-b-2 hover:text-primary-foreground ${isActive
                                         ? "text-primary-foreground border-white"
                                         : "text-muted-foreground border-transparent"
                                         }`}
